@@ -33,51 +33,39 @@ function getItemFromSafe(password) {
  **/
 
 async function unlockSafe(customerName) {
-  /** 
-   * WRITE YOUR CODE IN HERE 
-   **/
   console.log('customerName ::', customerName);
+  
   var pwd = '';
-  // Split full name
+
   var fullNameSplit = customerName.split(" ");
   var fName = fullNameSplit[0];
   var lName = fullNameSplit.length > 1 ? fullNameSplit[fullNameSplit.length - 1] : '';
-  // console.log('fName ::', fName);
-  // console.log('lName ::', lName);
 
-  //length
   const lengthFnameLname = getFullNameLength(fName, lName);
-  //console.log('lengthFnameLname ::', lengthFnameLname);
-
   if (lengthFnameLname > 0) {
     pwd += lengthFnameLname + '-';
   }
 
   const lastLtrOfFname = lastLetterOfFName(fName);
-  //console.log('lastLtrOfFname ::', lastLtrOfFname);
-
   if (lastLtrOfFname.length > 0) {
     pwd += lastLtrOfFname + '-';
   }
 
   const firstLtrOfLName = firstLetterOfLName(lName);
-  //console.log('firstLtrOfLName ::', firstLtrOfLName);
   if (firstLtrOfLName.length > 0) {
     pwd += firstLtrOfLName + '-';
   }
 
   let countVowel = 0;
   countVowel = countVowels(customerName);
-  //console.log('countVowel ::', countVowel);
   if (countVowel > 0) {
     pwd += countVowel + '-';
   }
 
-  //remove duplicate
+  //remove white space and duplicate characters from user name
   const noDupChar = removeDuplicate(customerName).split(" ").join("");
   console.log('noDupChar ::', noDupChar);
 
-  //Sum of UTF Char 
   const sumUTFCharCode = strToUTF16(noDupChar);
   console.log('sumUTFCharCode ::', sumUTFCharCode);
   if (sumUTFCharCode > 0) {
@@ -91,27 +79,27 @@ async function unlockSafe(customerName) {
 
 };
 
-//The first name length added to the last name length
+//Function to sum the first name length and length of last name
 getFullNameLength = (fName, lName) => {
   return fName.length + lName.length;
 };
 
-//The captialised last letter of the first name
+//Function to find the captialised last letter of the first name
 lastLetterOfFName = (fName) => {
   return (fName.substr(fName.length - 1)).toUpperCase();
 };
 
-//The lowercasefirst character of the last name
+//Function to find the lowercasefirst character of the last name
 firstLetterOfLName = (lName) => {
   return (lName.charAt(0)).toLowerCase();
 };
 
-//The total number of vowels (a, e, i, o, u) in the full name
+//Function to count the total number of vowels (a, e, i, o, u) in the full name
 countVowels = (customerName) => {
   return (customerName.match(/[aeiou]/gi) == null) ? 0 : customerName.match(/[aeiou]/gi).length;
 };
 
-//Remove duplicate characters from the user name
+//Function to remove the duplicate characters from the user name
 removeDuplicate = (nameStr) => {
   var input = nameStr;
   var seen = new Set();
@@ -122,7 +110,7 @@ removeDuplicate = (nameStr) => {
   return output;
 };
 
-//Get UTF-8/16 character code of any string 
+//Function to get the UTF-8/16 character code sum of any string 
 function strToUTF16(str) {
   var arr = []
   var sumUTFCharCode = 0;
